@@ -4,6 +4,8 @@ import {
     useParams
 } from 'react-router-dom';
 import RoomData from '../../Data.js';
+import ImageLoader from '../loader/image-loader.js';
+import Image from "react-shimmer";
 
 function getRoomById(id) {
     const roomData = RoomData();
@@ -24,13 +26,18 @@ function Room(props) {
 
     return (
         <div>
-            <div className="room-img"><img src={currentRoom.img} alt={currentRoom.name} style={{width:'100%'}} /></div>
+            <div className="room-img">
+                <Image
+                    src={currentRoom.img}
+                    fallback={<ImageLoader/>}
+                />
+            </div>
             <h1 className="room-name">{currentRoom.name}</h1>
             <div className="room-description">{currentRoom.description}</div>
-            <br/>
+            <br />
             <Link to="/">Kembali ke List Room</Link>
         </div>
-    )
+    );
 }
 
 export default Room;

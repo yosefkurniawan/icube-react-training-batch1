@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import {
     Route,
     Switch
 } from 'react-router-dom';
-import RoomList from './content/RoomList.js'
 import Room from './content/Room.js';
 import ErrorBoundary from './ErrorBoundary.js';
+import ListLoader from './loader/list-loader.js';
+
+const RoomList = lazy(() => import('./content/RoomList'));
 
 function Content(props) {
     return (
@@ -18,10 +20,12 @@ function Content(props) {
                     <Room />
                 </Route>
                 <Route path="/">
-                    <RoomList
-                        rooms={props.rooms}
-                        keyWordSearch={props.keyWordSearch}
-                    />
+                    <Suspense fallback={<ListLoader />}>
+                        <RoomList
+                            rooms={props.rooms}
+                            keyWordSearch={props.keyWordSearch}
+                        />
+                    </Suspense>
                 </Route>
             </Switch>
         </ErrorBoundary>

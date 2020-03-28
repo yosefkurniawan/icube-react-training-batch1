@@ -1,0 +1,27 @@
+.App {
+  padding: 40px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  background: #eee;
+  padding: 20px;
+  display: flex;
+}
+
+ul li + li {
+  margin-top: 20px;
+}
+
+ul img {
+  width: 100px;
+}
+
+.info {
+  margin-left: 20px;
+  line-height: 1.5;
+}

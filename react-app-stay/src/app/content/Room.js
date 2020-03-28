@@ -15,6 +15,11 @@ function getRoomById(id) {
 
 function Room(props) {
     const { roomid } = useParams();
+
+    if (roomid <= -1) {
+        throw new Error("I crashed!");
+    }
+
     const currentRoom = getRoomById(roomid);
 
     return (

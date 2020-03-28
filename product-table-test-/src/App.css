@@ -1,0 +1,15 @@
+.App {
+  width: 400px;
+  margin: 40px auto;
+  border: 1px solid #ddd;
+  padding: 20px;
+}
+
+.searchbar {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.searchbar div {
+  margin-bottom: 10px;
+}

@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import {
   BrowserRouter as Router
 } from 'react-router-dom';
 import RoomData from './Data.js';
 import Header from './app/Header.js';
-import Content from './app/Content.js';
 import './App.css';
+
+const Content = lazy(() => import('./app/Content'));
 
 const rooms = RoomData();
 
@@ -26,7 +27,9 @@ class App extends React.Component {
       <div className="App">
         <Router>
           <Header className="App-header" rooms={rooms} onSearch={this.handleOnSearch} />
-          <Content className="App-content" rooms={rooms} keyWordSearch={this.state.keyWordSearch} />
+          <Suspense fallback={<div className="loader">Loading...</div>}>
+            <Content className="App-content" rooms={rooms} keyWordSearch={this.state.keyWordSearch} />
+          </Suspense>
         </Router>
       </div>
     );

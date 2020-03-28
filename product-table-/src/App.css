@@ -1,0 +1,18 @@
+.App {
+  padding: 30px;
+}
+
+.searchbox {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.searchbox input + input {
+  margin-left: 30px;
+}
+
+table th,
+table td {
+  padding: 5px 15px;
+}

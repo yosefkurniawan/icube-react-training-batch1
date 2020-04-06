@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import LinkList from './LinkList'
 import CreateLink from "./CreateLink";
 import Login from "./Login";
+import Search from "./Search";
 import Header from './Header';
 import { Switch, Route } from "react-router-dom";
 
@@ -14,6 +15,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={LinkList} />
                     <Route exact path="/create" component={CreateLink} />
+                    <Route exact path="/search" component={Search} />
                     <Route exact path="/login" component={Login} />
                 </Switch>
             </div>

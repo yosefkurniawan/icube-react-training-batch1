@@ -6,16 +6,28 @@ import { Query } from "react-apollo";
 class LinkList extends Component {
     render() {
         const FEED_QUERY = gql`
-        {
-            feed {
-                links {
-                    id,
-                    createdAt,
-                    url,
-                    description
+            {
+                feed {
+                    links {
+                        id
+                        createdAt
+                        url
+                        description
+                        postedBy {
+                            id
+                            name
+                        }
+                        votes {
+                            id
+                            user {
+                                id
+                                name
+                            }
+                        }
+                    }
                 }
             }
-        }`
+        `;
 
         return (
             <Query query={FEED_QUERY}>
@@ -29,8 +41,8 @@ class LinkList extends Component {
                         <>
                             <h1>Links:</h1>
                             <ul>
-                                {LinksToRender.map((link) => (
-                                    <Link key={link.id} link={link} />
+                                {LinksToRender.map((link, i) => (
+                                    <Link key={link.id} link={link} index={i} />
                                 ))}
                             </ul>
                         </>

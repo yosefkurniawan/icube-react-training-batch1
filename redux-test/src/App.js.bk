@@ -1,0 +1,45 @@
+import React from 'react';
+import { createStore } from 'redux';
+
+const store = createStore(reducer);
+
+function reducer(state = 0, action) {
+    if (action.type === 'INCREASE') {
+        return state + 1;
+    }else if (action.type === 'DECREASE') {
+        return state - 1;
+    }else{
+        return state;
+    }
+}
+
+function increment() {
+    return {
+        type: 'INCREASE',
+    };
+}
+
+function decrement() {
+    return {
+        type: 'DECREASE',
+    };
+}
+
+store.subscribe(function(){
+    console.log(store.getState());
+});
+
+console.log(store.getState());
+
+store.dispatch(increment());
+store.dispatch(increment());
+store.dispatch(increment());
+
+store.dispatch(decrement());
+
+
+function App() {
+    return <div className="App">test redux.</div>;
+}
+
+export default App;

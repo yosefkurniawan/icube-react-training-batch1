@@ -53,7 +53,6 @@ const Category = () => {
     }
     const category = data.categoryList[0];
     
-    console.log(category);
     const pageConfig = {
         title: category.name,
         className: 'page-category'

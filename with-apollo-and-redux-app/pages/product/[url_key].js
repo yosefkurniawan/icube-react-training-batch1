@@ -55,13 +55,13 @@ const Pdp = () => {
         className: 'page-product',
     };
 
-    // if (loading) {
+    if (loading) {
         return (
             <Layout pageConfig={pageConfig}>
                 <PDPSkeleton />
             </Layout>
         );
-    // }
+    }
     
     const product = data.products.items[0];
     pageConfig.title = product.name;

@@ -1,6 +1,17 @@
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { withRedux } from '../lib/redux';
 
 const Navigation = () => {
+    const cart = useSelector((state) => state.cart);
+    let cartCount = 0;
+    
+    if(cart.length) {
+        cart.forEach(item => {
+            cartCount += parseint(item.qty);
+        });
+    }
+
     return (
         <div>
             <Link href="/">
@@ -11,11 +22,11 @@ const Navigation = () => {
                 <a>About Us</a>
             </Link>
             &nbsp; | &nbsp;
-            <Link href="/category/[id]" as="/category/12">
-                <a>Category 12</a>
+            <Link href="/cart">
+                <a>Cart({cartCount})</a>
             </Link>
         </div>
     );
 }
 
-export default Navigation;
+export default (withRedux)(Navigation);

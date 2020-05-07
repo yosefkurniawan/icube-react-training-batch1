@@ -3,11 +3,7 @@ import Layout from '../../components/layout';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import { withApollo } from '../../lib/apollo';
-import ReactHtmlParser, {
-    processNodes,
-    convertNodeToElement,
-    htmlparser2,
-} from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 import Link from 'next/link';
 import Price from '../../components/price';
 

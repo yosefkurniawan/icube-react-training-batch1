@@ -34,8 +34,25 @@ footer {
     margin-bottom: 10px;
 }
 
-.product-listing .product-image img {
+/* PDP */
+.page-product .product-image {
+    margin: 20px 0;
+}
+.page-product .product-image img {
     width: 100%;
+}
+.page-product .product-name {
+    font-size: 14px;
+}
+.page-product input.qty {
+    width: 50px;
+}
+.page-product .product-desc {
+    margin: 20px 0;
+}
+
+.page-product .product-desc * {
+    max-width: 100%;
 }
 
 /* Pricing */
@@ -45,4 +62,14 @@ footer {
 
 .regular-price {
     font-size: 14px;
+}
+
+/* Form */
+input {
+    border: 1px solid #ccc;
+}
+button {
+    background-color: #000;
+    color: #fff;
+    text-transform: uppercase;
 }

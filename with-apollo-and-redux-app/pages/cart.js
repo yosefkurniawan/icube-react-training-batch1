@@ -27,55 +27,61 @@ const cart = () => {
                 ) : (
                     <table>
                         <thead>
-                            <th>Product</th>
-                            <th>Subtotal</th>
+                            <tr>
+                                <th>Product</th>
+                                <th>Subtotal</th>
+                            </tr>
                         </thead>
                         {cart.map((item) => (
-                            <tbody>
-                                <td>
-                                    <div className="cart-product-info-wrapper">
-                                        <div className="cart-product-image">
-                                            <img
-                                                src={item.image}
-                                                alt={item.name}
-                                            />
+                            <tbody key={item.sku}>
+                                <tr>
+                                    <td>
+                                        <div className="cart-product-info-wrapper">
+                                            <div className="cart-product-image">
+                                                <img
+                                                    src={item.image}
+                                                    alt={item.name}
+                                                />
+                                            </div>
+                                            <div className="cart-product-info">
+                                                <div className="cart-product-name">
+                                                    <strong>{item.name}</strong>
+                                                </div>
+                                                <div className="cart-product-sku">
+                                                    <div>SKU: {item.sku}</div>
+                                                </div>
+                                                <div className="cart-product-price">
+                                                    {item.price.currency}{' '}
+                                                    {item.price.value}
+                                                </div>
+                                                <div className="cart-product-qty">
+                                                    <div>Qty: {item.qty}</div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="cart-product-info">
-                                            <div className="cart-product-name">
-                                                <strong>{item.name}</strong>
-                                            </div>
-                                            <div className="cart-product-sku">
-                                                <div>SKU: {item.sku}</div>
-                                            </div>
-                                            <div className="cart-product-price">
-                                                {item.price.currency}{' '}
-                                                {item.price.value}
-                                            </div>
-                                            <div className="cart-product-qty">
-                                                <div>Qty: {item.qty}</div>
+                                    </td>
+                                    <td>
+                                        <div className="cart-product-subtotal">
+                                            <div>
+                                                {item.price.currency}
+                                                {` `}
+                                                {item.price.value *
+                                                    parseInt(item.qty)}
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="cart-product-subtotal">
-                                        <div>
-                                            {item.price.currency}
-                                            {` `}
-                                            {item.price.value *
-                                                parseInt(item.qty)}
-                                        </div>
-                                    </div>
-                                </td>
+                                    </td>
+                                </tr>
                             </tbody>
                         ))}
                         <tfoot>
-                            <td>
-                                <strong>Total: </strong>
-                            </td>
-                            <td>
-                                {currency} {total}
-                            </td>
+                            <tr>
+                                <td>
+                                    <strong>Total: </strong>
+                                </td>
+                                <td>
+                                    {currency} {total}
+                                </td>
+                            </tr>
                         </tfoot>
                     </table>
                 )}

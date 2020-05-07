@@ -18,6 +18,7 @@ const CATEGORY = gql`
                 items {
                     id
                     name
+                    sku
                     url_key
                     description {
                         html
@@ -60,7 +61,6 @@ const Category = () => {
 
     return (
         <Layout pageConfig={pageConfig}>
-            id: {id}
             <div className="category-info">
                 <div className="category-banner">
                     <img src={category.image_path} alt={category.name} />
@@ -71,7 +71,7 @@ const Category = () => {
             </div>
             <div className="product-listing">
                 {category.products.items.map((item) => (
-                    <div className="product-item">
+                    <div className="product-item" key={item.sku}>
                         <div className="product-inner">
                             <div className="product-image">
                                 <img

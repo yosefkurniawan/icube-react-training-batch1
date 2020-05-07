@@ -100,7 +100,7 @@ const Pdp = () => {
             <div className="product-actions">
                 <form onSubmit={handleAddToCart}>
                     <input
-                        type="text"
+                        type="number"
                         name="qty"
                         className="qty"
                         placeholder="Qty"

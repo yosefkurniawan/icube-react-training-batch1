@@ -26,7 +26,8 @@ const CATEGORIES_QUERY = gql`
 
 const Index = () => {
     const pageConfig = {
-        title: "Homepage..."
+        title: "Homepage",
+        className: 'page-homepage'
     }
 
     const { loading, data } = useQuery(CATEGORIES_QUERY, {

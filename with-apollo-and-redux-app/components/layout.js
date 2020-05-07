@@ -2,7 +2,7 @@ import Navigation from './navigation';
 import Head from 'next/head';
 
 const Layout = ({children, pageConfig}) => {
-    const { title } = pageConfig;
+    const { title, className } = pageConfig;
     return (
         <>
             <Head>
@@ -12,7 +12,7 @@ const Layout = ({children, pageConfig}) => {
             <header>
                 <Navigation />
             </header>
-            <div className="content">
+            <div className={`content ${className}`}>
                 {children}
             </div>
             <footer>

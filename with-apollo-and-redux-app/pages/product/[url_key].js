@@ -69,9 +69,10 @@ const Pdp = () => {
         const item = {
             sku: product.sku,
             name: product.name,
+            image: product.image.url,
             qty: qty,
-            price: product.price_range.minimum_price.final_price
-        }
+            price: product.price_range.minimum_price.final_price,
+        };
 
         dispatch({
             type: 'ADD_TO_CART',

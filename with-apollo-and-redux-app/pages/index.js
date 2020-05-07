@@ -4,6 +4,7 @@ import { withApollo } from '../lib/apollo';
 import Layout from '../components/layout';
 import { useQuery } from '@apollo/react-hooks';
 import Link from 'next/link';
+import { Skeleton } from '@material-ui/lab';
 
 const CATEGORIES_QUERY = gql`
     {
@@ -35,7 +36,11 @@ const Index = () => {
     });
 
     if(loading) {
-        return <div>Loading...</div>
+        return (
+            <Layout pageConfig={pageConfig}>
+                <HomeSkeleton />
+            </Layout>
+        )
     }
     const categories = data.categoryList[0].children;
     
@@ -90,6 +95,40 @@ const Index = () => {
                 </ul>
             </div>
         </Layout>
+    );
+}
+
+const HomeSkeleton = () => {
+    return (
+        <div>
+            <br />
+            <Skeleton animation="wave" variant="rect" height={30} width={250} />
+            <br />
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
+            <br />
+            <Skeleton animation="wave" width={150} />
+            <Skeleton animation="wave" width={200} />
+            <Skeleton animation="wave" width={200} />
+            <Skeleton animation="wave" width={200} />
+            <Skeleton animation="wave" width={200} />
+            <Skeleton animation="wave" width={200} />
+            <Skeleton animation="wave" width={200} />
+            <Skeleton animation="wave" width={200} />
+            <Skeleton animation="wave" width={200} />
+            <br />
+            <Skeleton animation="wave" width={150} />
+            <Skeleton animation="wave" width={200} />
+            <Skeleton animation="wave" width={200} />
+            <Skeleton animation="wave" width={200} />
+            <Skeleton animation="wave" width={200} />
+            <Skeleton animation="wave" width={200} />
+            <Skeleton animation="wave" width={200} />
+            <Skeleton animation="wave" width={200} />
+            <Skeleton animation="wave" width={200} />
+        </div>
     );
 }
 

@@ -6,6 +6,7 @@ import { withApollo } from '../../lib/apollo';
 import ReactHtmlParser from 'react-html-parser';
 import Link from 'next/link';
 import Price from '../../components/price';
+import { Skeleton } from '@material-ui/lab';
 
 const CATEGORY = gql`
     query getCategoryById($id: String!) {
@@ -47,18 +48,27 @@ const CATEGORY = gql`
 const Category = () => {
     const router = useRouter();
     const { id } = router.query;
-    const { data, loading } = useQuery(CATEGORY, {variables: {id: id}})
+    const { data, loading } = useQuery(CATEGORY, {
+        variables: { id: id },
+        fetchPolicy: 'network-only',
+    });
 
-    if(loading) {
-        return <div>Loading...</div>
-    }
-    const category = data.categoryList[0];
-    
     const pageConfig = {
-        title: category.name,
-        className: 'page-category'
+        title: 'Category Page',
+        className: 'page-category',
     };
 
+    if(loading) {
+        return  (
+            <Layout pageConfig={pageConfig}>
+                <CategorySkeleton />
+            </Layout>
+        )
+    }
+    const category = data.categoryList[0];
+
+    pageConfig.title = category.name;
+    
     return (
         <Layout pageConfig={pageConfig}>
             <div className="category-info">
@@ -99,5 +109,44 @@ const Category = () => {
         </Layout>
     );
 }
+
+
+const CategorySkeleton = () => {
+    const items = [1,2,3,4];
+    return (
+        <>
+            <div className="category-info">
+                <Skeleton animation="wave" variant="rect" height={300} />
+                <br />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+            </div>
+            <br />
+            <div className="product-listing">
+                {items.map((item) => (
+                    <div className="product-item" key={item}>
+                        <div className="product-image">
+                            <Skeleton
+                                animation="wave"
+                                variant="rect"
+                                height={170}
+                            />
+                        </div>
+                        <div className="product-info">
+                            <div className="product-name">
+                                <Skeleton animation="wave" />
+                            </div>
+                            <div className="product-price">
+                                <Skeleton animation="wave" width={50} />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </>
+    );
+};
 
 export default (withApollo)(Category);

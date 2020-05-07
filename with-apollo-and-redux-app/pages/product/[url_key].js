@@ -10,6 +10,7 @@ import ReactHtmlParser from 'react-html-parser';
 import { useDispatch } from 'react-redux';
 import { compose } from 'redux';
 import { addToCart } from '../../redux/actionCart';
+import { Skeleton } from '@material-ui/lab';
 
 const PRODUCT = gql`
     query getProduct($urlKey: String!) {
@@ -49,16 +50,21 @@ const Pdp = () => {
     const { url_key } = router.query;
     const { loading, data } = useQuery(PRODUCT, {variables: {urlKey: url_key}})
 
-    if (loading) {
-        return <div>Loading...</div>
-    }
-    
-    const product = data.products.items[0];
-
     const pageConfig = {
-        title: product.name,
+        title: 'PDP',
         className: 'page-product',
     };
+
+    // if (loading) {
+        return (
+            <Layout pageConfig={pageConfig}>
+                <PDPSkeleton />
+            </Layout>
+        );
+    // }
+    
+    const product = data.products.items[0];
+    pageConfig.title = product.name;
 
     const handleChangeQty = (e) => {
         setQty(e.target.value);
@@ -109,5 +115,27 @@ const Pdp = () => {
         </Layout>
     );
 }
+
+const PDPSkeleton = () => {
+    return (
+        <div>
+            <br />
+            <Skeleton animation="wave" variant="rect" height={400} />
+            <br />
+            <Skeleton animation="wave" height={30} />
+            <Skeleton animation="wave" height={20} width={50} />
+            <br />
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
+        </div>
+    );
+};
 
 export default compose(withApollo, withRedux)(Pdp);

@@ -9,6 +9,7 @@ import Price from "../../components/price";
 import ReactHtmlParser from 'react-html-parser';
 import { useDispatch } from 'react-redux';
 import { compose } from 'redux';
+import { addToCart } from '../../redux/actionCart';
 
 const PRODUCT = gql`
     query getProduct($urlKey: String!) {
@@ -74,11 +75,7 @@ const Pdp = () => {
             price: product.price_range.minimum_price.final_price,
         };
 
-        dispatch({
-            type: 'ADD_TO_CART',
-            item
-        });
-        
+        dispatch( addToCart(item) );
     }
 
     return (

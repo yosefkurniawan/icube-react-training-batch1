@@ -44,6 +44,9 @@ const cart = () => {
                                             <div className="cart-product-name">
                                                 <strong>{item.name}</strong>
                                             </div>
+                                            <div className="cart-product-sku">
+                                                <div>SKU: {item.sku}</div>
+                                            </div>
                                             <div className="cart-product-price">
                                                 {item.price.currency}{' '}
                                                 {item.price.value}

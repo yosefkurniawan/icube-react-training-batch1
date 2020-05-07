@@ -8,7 +8,7 @@ const Navigation = () => {
     
     if(cart.length) {
         cart.forEach(item => {
-            cartCount += parseint(item.qty);
+            cartCount += parseInt(item.qty);
         });
     }
 

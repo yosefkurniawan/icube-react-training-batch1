@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { useRouter } from "next/router";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import { withApollo } from "../../lib/apollo";
+import { withApollo } from '../../lib/apollo';
+import { withRedux } from '../../lib/redux';
 import Layout from "../../components/layout";
 import Price from "../../components/price";
 import ReactHtmlParser from 'react-html-parser';
+import { useDispatch } from 'react-redux';
+import { compose } from 'redux';
 
 const PRODUCT = gql`
     query getProduct($urlKey: String!) {
@@ -40,6 +43,7 @@ const PRODUCT = gql`
 
 const Pdp = () => {
     const [qty, setQty] = useState();
+    const dispatch = useDispatch();
     const router = useRouter();
     const { url_key } = router.query;
     const { loading, data } = useQuery(PRODUCT, {variables: {urlKey: url_key}})
@@ -49,7 +53,6 @@ const Pdp = () => {
     }
     
     const product = data.products.items[0];
-    console.log(product);
 
     const pageConfig = {
         title: product.name,
@@ -62,8 +65,19 @@ const Pdp = () => {
 
     const handleAddToCart = (e) => {
         e.preventDefault();
-        console.log(qty);
-        //@TODO: implemeent add to cart
+        
+        const item = {
+            sku: product.sku,
+            name: product.name,
+            qty: qty,
+            price: product.price_range.minimum_price.final_price
+        }
+
+        dispatch({
+            type: 'ADD_TO_CART',
+            item
+        });
+        
     }
 
     return (
@@ -98,4 +112,4 @@ const Pdp = () => {
     );
 }
 
-export default (withApollo)(Pdp);
+export default compose(withApollo, withRedux)(Pdp);

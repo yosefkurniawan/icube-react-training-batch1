@@ -2,10 +2,8 @@ import {StyleSheet} from 'react-native';
 
 const globalStyles = StyleSheet.create({
     container: {
-        backgroundColor: '#fff',
-    },
-    scrollView: {
         padding: 15,
+        backgroundColor: '#fff',
     },
     title: {
         fontSize: 20,

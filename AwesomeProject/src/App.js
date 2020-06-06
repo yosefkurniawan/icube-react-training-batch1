@@ -1,17 +1,25 @@
-import React from 'react';
-import {View, ScrollView, SafeAreaView} from 'react-native';
+import React, {useState} from 'react';
+import {SafeAreaView, ScrollView} from 'react-native';
 import {globalStyles} from './assets/style';
-import LoginForm from './components/formLogin';
+import FormLogin from './components/FormLogin';
+import FormTodo from './components/FormTodo';
+import ListTodo from './components/ListTodo';
 
 const App = () => {
+    const [todo, setTodo] = useState([]);
+
+    const handleAddTodo = (item) => {
+        setTodo(todo.concat(item));
+    };
+
     return (
-        <View style={globalStyles.container}>
-            <SafeAreaView>
-                <ScrollView style={globalStyles.scrollView}>
-                    <LoginForm />
-                </ScrollView>
-            </SafeAreaView>
-        </View>
+        <SafeAreaView>
+            <ScrollView style={globalStyles.scrollView}>
+                {/* <FormLogin /> */}
+                <FormTodo handleAddTodo={handleAddTodo} />
+                <ListTodo todoList={todo} />
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {SafeAreaView, ScrollView} from 'react-native';
 import {globalStyles} from '../../assets/style';
 import FormLogin from '../../components/FormLogin';

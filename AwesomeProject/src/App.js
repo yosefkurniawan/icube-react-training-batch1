@@ -1,4 +1,6 @@
 import React from 'react';
+import {ApolloProvider} from '@apollo/react-hooks';
+import {client} from './lib/apolloClient';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -53,62 +55,68 @@ const App = () => {
         /* End: Stack Navigation */
 
         /* Start: Tab Navigation */
-        <NavigationContainer>
-            <Tab.Navigator
-                screenOptions={({route}) => ({
-                    tabBarIcon: ({focused, color, size}) => {
-                        let iconName;
+        <ApolloProvider client={client}>
+            <NavigationContainer>
+                <Tab.Navigator
+                    screenOptions={({route}) => ({
+                        tabBarIcon: ({focused, color, size}) => {
+                            let iconName;
 
-                        if (route.name === 'Home') {
-                            iconName = focused ? 'home' : 'home';
-                        } else if (route.name === 'Catalog') {
-                            iconName = focused ? 'menu' : 'menu';
-                        } else if (route.name === 'Todo') {
-                            iconName = focused
-                                ? 'calendar-check'
-                                : 'calendar-check';
-                        } else if (route.name === 'Login') {
-                            iconName = focused ? 'account' : 'account';
-                        } else if (route.name === 'Cart') {
-                            iconName = focused ? 'cart' : 'cart';
-                        }
+                            if (route.name === 'Home') {
+                                iconName = focused ? 'home' : 'home';
+                            } else if (route.name === 'Catalog') {
+                                iconName = focused ? 'menu' : 'menu';
+                            } else if (route.name === 'Todo') {
+                                iconName = focused
+                                    ? 'calendar-check'
+                                    : 'calendar-check';
+                            } else if (route.name === 'Login') {
+                                iconName = focused ? 'account' : 'account';
+                            } else if (route.name === 'Cart') {
+                                iconName = focused ? 'cart' : 'cart';
+                            }
 
-                        return (
-                            <Icon name={iconName} size={size} color={color} />
-                        );
-                    },
-                })}
-                tabBarOptions={{
-                    activeTintColor: 'tomato',
-                    inactiveTintColor: 'gray',
-                }}>
-                <Tab.Screen
-                    name="Home"
-                    component={Home}
-                    options={{title: 'Home'}}
-                />
-                <Tab.Screen
-                    name="Catalog"
-                    component={CatalogStack}
-                    options={{title: 'Catalog'}}
-                />
-                {/* <Tab.Screen
+                            return (
+                                <Icon
+                                    name={iconName}
+                                    size={size}
+                                    color={color}
+                                />
+                            );
+                        },
+                    })}
+                    tabBarOptions={{
+                        activeTintColor: 'tomato',
+                        inactiveTintColor: 'gray',
+                    }}>
+                    <Tab.Screen
+                        name="Home"
+                        component={Home}
+                        options={{title: 'Home'}}
+                    />
+                    <Tab.Screen
+                        name="Catalog"
+                        component={CatalogStack}
+                        options={{title: 'Catalog'}}
+                    />
+                    {/* <Tab.Screen
                     name="Todo"
                     component={Todo}
                     options={{title: 'Todo'}}
                 /> */}
-                <Tab.Screen
-                    name="Cart"
-                    component={Cart}
-                    options={{title: 'Cart'}}
-                />
-                <Tab.Screen
-                    name="Login"
-                    component={Login}
-                    options={{title: 'Account'}}
-                />
-            </Tab.Navigator>
-        </NavigationContainer>
+                    <Tab.Screen
+                        name="Cart"
+                        component={Cart}
+                        options={{title: 'Cart'}}
+                    />
+                    <Tab.Screen
+                        name="Login"
+                        component={Login}
+                        options={{title: 'Account'}}
+                    />
+                </Tab.Navigator>
+            </NavigationContainer>
+        </ApolloProvider>
         /* End: Tab Navigation */
     );
 };

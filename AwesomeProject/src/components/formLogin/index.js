@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, {useState} from 'react';
 import {gql} from 'apollo-boost';
 import {
@@ -8,9 +7,10 @@ import {
     TextInput,
     TouchableOpacity,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import PrimaryButton from '../primaryButton';
 import {useMutation} from '@apollo/react-hooks';
+import AsyncStorage from '@react-native-community/async-storage';
+import {saveItem, getItem} from '../../helpers/localStorage';
 import {globalStyles, formStyles} from '../../assets/style';
 import styles from './style';
 
@@ -23,33 +23,12 @@ const schemaGenerateCustomerToken = gql`
 `;
 
 const FormLogin = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-
-    const saveToken = async (value) => {
-        try {
-            await AsyncStorage.setItem('token', value);
-        } catch (e) {
-            // saving error
-        }
-    };
-
-    const getToken = async () => {
-        const value = await AsyncStorage.getItem('token');
-        return value;
-    };
+    const [username, setUsername] = useState('jojo@icube.us');
+    const [password, setPassword] = useState('Icubeus@1234');
 
     const [generateCustomerToken, {loading, data, error}] = useMutation(
         schemaGenerateCustomerToken,
     );
-
-    const removeToken = async () => {
-        try {
-            await AsyncStorage.removeItem('token');
-        } catch (e) {
-            // saving error
-        }
-    };
 
     if (loading) {
         return <Text>Loading...</Text>;
@@ -60,11 +39,11 @@ const FormLogin = () => {
 
     if (data) {
         const token = data.generateCustomerToken.token;
-        console.log(token);
-        saveToken(token);
-        getToken();
-        // removeToken();
-        getToken();
+        saveItem('token', token).then(() => {
+            getItem('token').then((value) => {
+                console.log(value);
+            });
+        });
     }
 
     const handleSubmit = () => {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {gql} from 'apollo-boost';
 import {
     View,
@@ -7,12 +7,13 @@ import {
     TextInput,
     TouchableOpacity,
 } from 'react-native';
-import PrimaryButton from '../primaryButton';
+import PrimaryButton from '../../components/primaryButton';
 import {useMutation} from '@apollo/react-hooks';
-import AsyncStorage from '@react-native-community/async-storage';
 import {saveItem, getItem} from '../../helpers/localStorage';
+// import {getLoginStatus} from '../../helpers/customer';
 import {globalStyles, formStyles} from '../../assets/style';
 import styles from './style';
+// import AsyncStorage from '@react-native-community/async-storage';
 
 const schemaGenerateCustomerToken = gql`
     mutation generateCustomerToken($email: String!, $password: String!) {
@@ -22,16 +23,27 @@ const schemaGenerateCustomerToken = gql`
     }
 `;
 
-const FormLogin = () => {
+const Login = ({handleSetIsLogin}) => {
     const [username, setUsername] = useState('jojo@icube.us');
     const [password, setPassword] = useState('Icubeus@1234');
+    // const [isLogin, setIsLogin] = useState();
+
+    // AsyncStorage.getItem('token').then((value) => {
+    //     console.log(value);
+    // });
+    // useEffect(() => {
+    //     AsyncStorage.getItem('token').then((value) => {
+    //         console.log(value);
+    //         setIsLogin(true);
+    //     });
+    // });
 
     const [generateCustomerToken, {loading, data, error}] = useMutation(
         schemaGenerateCustomerToken,
     );
 
     if (loading) {
-        return <Text>Loading...</Text>;
+        return <Text>Loging in...</Text>;
     }
     if (error) {
         return <Text>Error fetching data!</Text>;
@@ -44,9 +56,11 @@ const FormLogin = () => {
                 console.log(value);
             });
         });
+        handleSetIsLogin(true);
     }
 
     const handleSubmit = () => {
+        console.log('Login clicked');
         generateCustomerToken({
             variables: {
                 email: username,
@@ -82,4 +96,4 @@ const FormLogin = () => {
     );
 };
 
-export default FormLogin;
+export default Login;

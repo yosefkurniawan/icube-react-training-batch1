@@ -1,17 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ApolloProvider} from '@apollo/react-hooks';
 import {client} from './lib/apolloClient';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Landing from './pages/Landing';
 import Home from './pages/Home';
 import Catalog from './pages/Catalog';
 import Category from './pages/Catalog/Category';
+import Customer from './pages/Customer';
+import Account from './pages/Customer/Account';
+import Login from './pages/Customer/Login';
 import Product from './pages/Catalog/Product';
-import Login from './pages/Login';
 import Cart from './pages/Checkout/Cart';
-// import Todo from './pages/Todo';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,6 +28,20 @@ function CatalogStack() {
             />
             <Stack.Screen name="Category" component={Category} />
             <Stack.Screen name="Product" component={Product} />
+        </Stack.Navigator>
+    );
+}
+
+function MyAccountStack() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Customer" component={Customer} />
+            <Stack.Screen name="Account" component={Account} />
+            <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{headerShown: false}}
+            />
         </Stack.Navigator>
     );
 }
@@ -70,7 +86,7 @@ const App = () => {
                                 iconName = focused
                                     ? 'calendar-check'
                                     : 'calendar-check';
-                            } else if (route.name === 'Login') {
+                            } else if (route.name === 'Account') {
                                 iconName = focused ? 'account' : 'account';
                             } else if (route.name === 'Cart') {
                                 iconName = focused ? 'cart' : 'cart';
@@ -90,6 +106,14 @@ const App = () => {
                         inactiveTintColor: 'gray',
                     }}>
                     <Tab.Screen
+                        name="Landing"
+                        component={Landing}
+                        options={{
+                            title: 'Landing',
+                            tabBarVisible: false,
+                        }}
+                    />
+                    <Tab.Screen
                         name="Home"
                         component={Home}
                         options={{title: 'Home'}}
@@ -100,18 +124,18 @@ const App = () => {
                         options={{title: 'Catalog'}}
                     />
                     {/* <Tab.Screen
-                    name="Todo"
-                    component={Todo}
-                    options={{title: 'Todo'}}
-                /> */}
+                        name="Todo"
+                        component={Todo}
+                        options={{title: 'Todo'}}
+                    /> */}
                     <Tab.Screen
                         name="Cart"
                         component={Cart}
                         options={{title: 'Cart'}}
                     />
                     <Tab.Screen
-                        name="Login"
-                        component={Login}
+                        name="Account"
+                        component={Customer}
                         options={{title: 'Account'}}
                     />
                 </Tab.Navigator>

@@ -1,9 +1,12 @@
 import {StyleSheet} from 'react-native';
 
 const globalStyles = StyleSheet.create({
+    SafeAreaView: {
+        padding: 15,
+    },
     container: {
         padding: 15,
-        backgroundColor: '#fff',
+        marginBottom: 15,
     },
     title: {
         fontSize: 20,

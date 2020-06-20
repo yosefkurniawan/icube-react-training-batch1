@@ -14,6 +14,7 @@ import Account from './pages/Customer/Account';
 import Login from './pages/Customer/Login';
 import Product from './pages/Catalog/Product';
 import Cart from './pages/Checkout/Cart';
+import Notification from './pages/Notification';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -85,6 +86,11 @@ const App = () => {
                         name="Account"
                         component={Customer}
                         options={{title: 'Account'}}
+                    />
+                    <Stack.Screen
+                        name="Notification"
+                        component={Notification}
+                        options={{title: 'Notification'}}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

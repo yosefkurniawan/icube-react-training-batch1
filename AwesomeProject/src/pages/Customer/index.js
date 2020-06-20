@@ -15,7 +15,25 @@ const Customer = ({navigation}) => {
     const handleSetIsLogin = (value) => {
         setIsLogin(value);
     };
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            console.log('Customer page: check Auth');
+            // The screen is focused
+            // Call any action
+            // removeItem('token');
+            getItem('token').then((value) => {
+                console.log(value);
+                if (value) {
+                    setIsLogin(true);
+                } else {
+                    setIsLogin(false);
+                }
+            });
+        });
 
+        // Return the function to unsubscribe from the event so it gets removed on unmount
+        return unsubscribe;
+    }, [navigation]);
     useEffect(() => {
         const unsubscribe = () => {
             console.log('Customer page: check Auth');

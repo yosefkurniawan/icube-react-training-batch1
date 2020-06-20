@@ -20,6 +20,10 @@ const Home = ({navigation}) => {
                     onPress={() => navigation.navigate('Catalog')}
                 />
                 <Button
+                    title="Notification"
+                    onPress={() => navigation.navigate('Notification')}
+                />
+                <Button
                     title="Account"
                     onPress={() => navigation.navigate('Account')}
                 />

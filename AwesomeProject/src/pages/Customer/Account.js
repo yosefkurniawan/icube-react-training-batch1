@@ -2,8 +2,10 @@ import React from 'react';
 import {SafeAreaView, ScrollView, Text, Button} from 'react-native';
 import {globalStyles} from '../../assets/style';
 import {removeItem, getItem} from '../../helpers/localStorage';
+import AUTH_ACTION from '../../stores/actions/auth';
+import {connect} from 'react-redux';
 
-const Account = ({handleSetIsLogin}) => {
+const Account = ({handleSetIsLogin, signOut}) => {
     const handleLogout = () => {
         console.log('logoout');
         removeItem('token').then(() => {
@@ -12,6 +14,7 @@ const Account = ({handleSetIsLogin}) => {
             });
         });
         handleSetIsLogin(false);
+        signOut();
     };
     return (
         <SafeAreaView>
@@ -23,4 +26,8 @@ const Account = ({handleSetIsLogin}) => {
     );
 };
 
-export default Account;
+const mapDispatchToProps = (dispatch) => ({
+    signOut: () => dispatch(AUTH_ACTION.delete()),
+});
+
+export default connect(null, mapDispatchToProps)(Account);

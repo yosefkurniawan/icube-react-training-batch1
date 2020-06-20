@@ -15,6 +15,8 @@ import Login from './pages/Customer/Login';
 import Product from './pages/Catalog/Product';
 import Cart from './pages/Checkout/Cart';
 import Notification from './pages/Notification';
+import {Provider} from 'react-redux';
+import stores from './stores';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -51,49 +53,51 @@ const App = () => {
     return (
         /* Start: Stack Navigation */
         <ApolloProvider client={client}>
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen
-                        name="Landing"
-                        component={Landing}
-                        options={{
-                            title: 'Landing',
-                        }}
-                    />
-                    <Stack.Screen
-                        name="Home"
-                        component={Home}
-                        options={{headerShown: false, title: 'Homepage!'}}
-                    />
-                    <Stack.Screen
-                        name="Catalog"
-                        component={Catalog}
-                        options={{title: 'Catalog Page!'}}
-                    />
-                    <Stack.Screen name="Category" component={Category} />
-                    <Stack.Screen name="Product" component={Product} />
-                    {/* <Stack.Screen
-                        name="Todo"
-                        component={Todo}
-                        options={{title: 'Todo!'}}
-                    /> */}
-                    <Stack.Screen
-                        name="Cart"
-                        component={Cart}
-                        options={{title: 'Cart'}}
-                    />
-                    <Stack.Screen
-                        name="Account"
-                        component={Customer}
-                        options={{title: 'Account'}}
-                    />
-                    <Stack.Screen
-                        name="Notification"
-                        component={Notification}
-                        options={{title: 'Notification'}}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
+            <Provider store={stores}>
+                <NavigationContainer>
+                    <Stack.Navigator>
+                        <Stack.Screen
+                            name="Landing"
+                            component={Landing}
+                            options={{
+                                title: 'Landing',
+                            }}
+                        />
+                        <Stack.Screen
+                            name="Home"
+                            component={Home}
+                            options={{headerShown: false, title: 'Homepage!'}}
+                        />
+                        <Stack.Screen
+                            name="Catalog"
+                            component={Catalog}
+                            options={{title: 'Catalog Page!'}}
+                        />
+                        <Stack.Screen name="Category" component={Category} />
+                        <Stack.Screen name="Product" component={Product} />
+                        {/* <Stack.Screen
+                            name="Todo"
+                            component={Todo}
+                            options={{title: 'Todo!'}}
+                        /> */}
+                        <Stack.Screen
+                            name="Cart"
+                            component={Cart}
+                            options={{title: 'Cart'}}
+                        />
+                        <Stack.Screen
+                            name="Account"
+                            component={Customer}
+                            options={{title: 'Account'}}
+                        />
+                        <Stack.Screen
+                            name="Notification"
+                            component={Notification}
+                            options={{title: 'Notification'}}
+                        />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </Provider>
         </ApolloProvider>
         /* End: Stack Navigation */
 

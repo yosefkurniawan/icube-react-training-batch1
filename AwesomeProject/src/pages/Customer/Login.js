@@ -13,7 +13,9 @@ import {saveItem, getItem} from '../../helpers/localStorage';
 // import {getLoginStatus} from '../../helpers/customer';
 import {globalStyles, formStyles} from '../../assets/style';
 import styles from './style';
+import {connect} from 'react-redux';
 // import AsyncStorage from '@react-native-community/async-storage';
+import AUTH_ACTION from '../../stores/actions/auth';
 
 const schemaGenerateCustomerToken = gql`
     mutation generateCustomerToken($email: String!, $password: String!) {
@@ -23,7 +25,7 @@ const schemaGenerateCustomerToken = gql`
     }
 `;
 
-const Login = ({handleSetIsLogin}) => {
+const Login = ({handleSetIsLogin, signIn}) => {
     const [username, setUsername] = useState('jojo@icube.us');
     const [password, setPassword] = useState('Icubeus@1234');
     // const [isLogin, setIsLogin] = useState();
@@ -57,6 +59,12 @@ const Login = ({handleSetIsLogin}) => {
             });
         });
         handleSetIsLogin(true);
+
+        let dataFormat = {
+            type: 'signin',
+            token: token,
+        };
+        signIn(dataFormat);
     }
 
     const handleSubmit = () => {
@@ -96,4 +104,12 @@ const Login = ({handleSetIsLogin}) => {
     );
 };
 
-export default Login;
+// const mapStateToProps = (state) => ({
+//     auth: state.auth,
+// });
+
+const mapDispatchToProps = (dispatch) => ({
+    signIn: (data) => dispatch(AUTH_ACTION.set(data)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

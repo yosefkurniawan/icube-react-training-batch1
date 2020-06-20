@@ -2,7 +2,7 @@ import ApolloClient from 'apollo-boost';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 
 export const client = new ApolloClient({
-    uri: 'https://swiftpwa.testingnow.me/graphql',
+    uri: 'https://swiftpwa-be.testingnow.me/graphql',
     cache: new InMemoryCache(),
 });
 

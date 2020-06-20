@@ -1,48 +1,70 @@
 import React from 'react';
 import {Text, SafeAreaView, View, FlatList} from 'react-native';
 import {globalStyles} from '../../assets/style';
+import {connect} from 'react-redux';
+import {gql} from 'apollo-boost';
+import {useQuery} from '@apollo/react-hooks';
 
-const DATA = [
+const queryNotification = gql`
     {
-        id: 1,
-        title: 'Title 1',
-        content: 'Lorem ipsum dolor sit amet',
-    },
-    {
-        id: 2,
-        title: 'Title 2',
-        content: 'Lorem ipsum dolor sit amet 2',
-    },
-    {
-        id: 3,
-        title: 'Title 3',
-        content: 'Lorem ipsum dolor sit amet 3',
-    },
-];
+        customerNotificationList {
+            items {
+                entityId
+                unread
+                createdAt
+                content
+                subject
+            }
+        }
+    }
+`;
 
 const NotificationItem = ({item}) => {
     return (
         <View>
             <Text>
-                {item.title} - {item.content}
+                {item.createdAt} -{item.subject} - {item.content}
             </Text>
         </View>
     );
 };
 
-const Notification = ({navigation}) => {
+const Notification = ({navigation, auth}) => {
+    let token = auth.user.token;
+
+    const {loading, data, error} = useQuery(queryNotification, {
+        context: {
+            headers: {
+                Authorization: token ? `Bearer ${token}` : '',
+            },
+        },
+        fetchPolicy: 'cache-and-network',
+    });
+
+    if (loading) {
+        return <Text>Fetching Data...</Text>;
+    }
+
+    if (error) {
+        return <Text>Unexpected error during fetching Data...</Text>;
+    }
+
     return (
         <SafeAreaView style={globalStyles.SafeAreaView}>
             <View style={globalStyles.container}>
                 <Text>TEST FLATLIST</Text>
                 <FlatList
-                    data={DATA}
+                    data={data.customerNotificationList.items}
                     renderItem={({item}) => <NotificationItem item={item} />}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item.entityId}
                 />
             </View>
         </SafeAreaView>
     );
 };
 
-export default Notification;
+const mapStateToProps = (state) => ({
+    auth: state.auth,
+});
+
+export default connect(mapStateToProps, null)(Notification);

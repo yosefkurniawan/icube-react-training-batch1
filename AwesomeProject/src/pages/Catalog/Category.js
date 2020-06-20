@@ -50,7 +50,7 @@ const ProductItem = ({item, navigation}) => {
             onPress={() =>
                 navigation.navigate('Product', {
                     name: item.name,
-                    id: item.id,
+                    sku: item.sku,
                 })
             }
         />

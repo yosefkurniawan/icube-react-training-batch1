@@ -157,6 +157,7 @@ function NoAuthStack() {
                 component={Landing}
                 options={{
                     title: 'Landing',
+                    headerShown: false,
                 }}
             />
             <Stack.Screen

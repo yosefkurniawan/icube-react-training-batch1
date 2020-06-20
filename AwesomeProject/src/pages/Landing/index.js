@@ -1,44 +1,32 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, Button, SafeAreaView, View} from 'react-native';
 import {globalStyles} from '../../assets/style';
-import {getItem, removeItem} from '../../helpers/localStorage';
+import {getItem} from '../../helpers/localStorage';
 import AUTH_ACTION from '../../stores/actions/auth';
 import {connect} from 'react-redux';
 
 const Landing = ({navigation, signIn}) => {
-    // if (!isLogin) {
-    //     navigation.navigate('Login');
-    // }
-    // getItem('token').then((value) => {
-    //     console.log('checkHome');
-    //     console.log(value);
-    //     if (value) {
-    //         navigation.navigate('Home');
-    //     }
-    // });
-    // useEffect(() => {
-    //     const unsubscribe = navigation.addListener('focus', () => {
-    //         console.log('Landing page: check auth');
-    //         // The screen is focused
-    //         // Call any action
-    //         // removeItem('token');
-    //         getItem('token').then((value) => {
-    //             console.log(value);
-    //             if (value) {
-    //                 navigation.navigate('Home');
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        console.log('Landing page: check auth');
+        getItem('token').then((value) => {
+            console.log(value);
+            if (value) {
+                navigation.navigate('Main');
 
-    //                 let dataFormat = {
-    //                     type: 'signin',
-    //                     token: value,
-    //                 };
-    //                 signIn(dataFormat);
-    //             }
-    //         });
-    //     });
+                let dataFormat = {
+                    type: 'signin',
+                    token: value,
+                };
+                signIn(dataFormat);
+            }
+            setLoading(false);
+        });
+    }, [navigation, signIn]);
 
-    //     // Return the function to unsubscribe from the event so it gets removed on unmount
-    //     return unsubscribe;
-    // }, [navigation, signIn]);
+    if (loading) {
+        return <Text>Loading...</Text>;
+    }
     return (
         <SafeAreaView style={globalStyles.SafeAreaView}>
             <View style={globalStyles.container}>

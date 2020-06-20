@@ -16,36 +16,36 @@ const Landing = ({navigation, signIn}) => {
     //         navigation.navigate('Home');
     //     }
     // });
-    useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            console.log('Landing page: check auth');
-            // The screen is focused
-            // Call any action
-            // removeItem('token');
-            getItem('token').then((value) => {
-                console.log(value);
-                if (value) {
-                    navigation.navigate('Home');
+    // useEffect(() => {
+    //     const unsubscribe = navigation.addListener('focus', () => {
+    //         console.log('Landing page: check auth');
+    //         // The screen is focused
+    //         // Call any action
+    //         // removeItem('token');
+    //         getItem('token').then((value) => {
+    //             console.log(value);
+    //             if (value) {
+    //                 navigation.navigate('Home');
 
-                    let dataFormat = {
-                        type: 'signin',
-                        token: value,
-                    };
-                    signIn(dataFormat);
-                }
-            });
-        });
+    //                 let dataFormat = {
+    //                     type: 'signin',
+    //                     token: value,
+    //                 };
+    //                 signIn(dataFormat);
+    //             }
+    //         });
+    //     });
 
-        // Return the function to unsubscribe from the event so it gets removed on unmount
-        return unsubscribe;
-    }, [navigation, signIn]);
+    //     // Return the function to unsubscribe from the event so it gets removed on unmount
+    //     return unsubscribe;
+    // }, [navigation, signIn]);
     return (
         <SafeAreaView style={globalStyles.SafeAreaView}>
             <View style={globalStyles.container}>
                 <Text>Please Login to access!</Text>
                 <Button
                     title="Login"
-                    onPress={() => navigation.navigate('Account')}
+                    onPress={() => navigation.navigate('Login')}
                 />
             </View>
         </SafeAreaView>

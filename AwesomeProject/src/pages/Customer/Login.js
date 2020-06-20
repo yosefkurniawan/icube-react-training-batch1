@@ -25,7 +25,7 @@ const schemaGenerateCustomerToken = gql`
     }
 `;
 
-const Login = ({handleSetIsLogin, signIn}) => {
+const Login = ({signIn}) => {
     const [username, setUsername] = useState('jojo@icube.us');
     const [password, setPassword] = useState('Icubeus@1234');
     // const [isLogin, setIsLogin] = useState();
@@ -58,7 +58,6 @@ const Login = ({handleSetIsLogin, signIn}) => {
                 console.log(value);
             });
         });
-        handleSetIsLogin(true);
 
         let dataFormat = {
             type: 'signin',

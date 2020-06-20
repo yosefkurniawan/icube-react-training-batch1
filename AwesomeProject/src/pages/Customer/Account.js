@@ -17,8 +17,8 @@ const queryCustomer = gql`
     }
 `;
 
-const Account = ({handleSetIsLogin, signOut, auth}) => {
-    let token = auth.user.token;
+const Account = ({navigation, signOut, auth}) => {
+    let token = auth.user ? auth.user.token : '';
 
     const {loading, data, error} = useQuery(queryCustomer, {
         context: {
@@ -44,8 +44,8 @@ const Account = ({handleSetIsLogin, signOut, auth}) => {
                 console.log(value);
             });
         });
-        handleSetIsLogin(false);
         signOut();
+        navigation.navigate('Main');
     };
     return (
         <SafeAreaView>

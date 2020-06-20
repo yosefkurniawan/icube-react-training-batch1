@@ -1,9 +1,11 @@
 import React from 'react';
-import {Text, SafeAreaView, View, FlatList} from 'react-native';
+import {Text, ScrollView, View, FlatList} from 'react-native';
 import {globalStyles} from '../../assets/style';
 import {connect} from 'react-redux';
 import {gql} from 'apollo-boost';
 import {useQuery} from '@apollo/react-hooks';
+import Loader from '../../components/Loader';
+import style from './style';
 
 const queryNotification = gql`
     {
@@ -21,10 +23,10 @@ const queryNotification = gql`
 
 const NotificationItem = ({item}) => {
     return (
-        <View>
-            <Text>
-                {item.createdAt} -{item.subject} - {item.content}
-            </Text>
+        <View style={style.item}>
+            <Text style={style.date}>{item.createdAt}</Text>
+            <Text style={style.subject}>{item.subject}</Text>
+            <Text>{item.content}</Text>
         </View>
     );
 };
@@ -42,7 +44,7 @@ const Notification = ({navigation, auth}) => {
     });
 
     if (loading) {
-        return <Text>Fetching Data...</Text>;
+        return <Loader />;
     }
 
     if (error) {
@@ -50,16 +52,14 @@ const Notification = ({navigation, auth}) => {
     }
 
     return (
-        <SafeAreaView style={globalStyles.SafeAreaView}>
-            <View style={globalStyles.container}>
-                <Text>TEST FLATLIST</Text>
-                <FlatList
-                    data={data.customerNotificationList.items}
-                    renderItem={({item}) => <NotificationItem item={item} />}
-                    keyExtractor={(item) => item.entityId}
-                />
-            </View>
-        </SafeAreaView>
+        <ScrollView style={globalStyles.container}>
+            <Text style={globalStyles.title}>Your Notification</Text>
+            <FlatList
+                data={data.customerNotificationList.items}
+                renderItem={({item}) => <NotificationItem item={item} />}
+                keyExtractor={(item) => item.entityId}
+            />
+        </ScrollView>
     );
 };
 

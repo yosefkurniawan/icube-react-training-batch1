@@ -1,8 +1,10 @@
 import React from 'react';
-import {SafeAreaView, Text, View, Button, FlatList} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {globalStyles} from '../../assets/style';
 import {useQuery} from '@apollo/react-hooks';
 import {gql} from 'apollo-boost';
+import Loader from '../../components/Loader';
+import ProductList from '../../components/ProductList';
 
 const CATEGORY = gql`
     query getCategoryById($id: String!) {
@@ -11,7 +13,7 @@ const CATEGORY = gql`
             url_key
             image_path
             description
-            products {
+            products(pageSize: 10) {
                 items {
                     id
                     name
@@ -41,22 +43,6 @@ const CATEGORY = gql`
     }
 `;
 
-const ProductItem = ({item, navigation}) => {
-    console.log(item);
-
-    return (
-        <Button
-            title={item.name}
-            onPress={() =>
-                navigation.navigate('Product', {
-                    name: item.name,
-                    sku: item.sku,
-                })
-            }
-        />
-    );
-};
-
 const Category = ({navigation, route: {params}}) => {
     let id = params.id;
 
@@ -65,7 +51,7 @@ const Category = ({navigation, route: {params}}) => {
     });
 
     if (loading) {
-        return <Text>Fetching Data...</Text>;
+        return <Loader />;
     }
 
     if (error) {
@@ -75,24 +61,13 @@ const Category = ({navigation, route: {params}}) => {
     const category = data.categoryList[0];
 
     return (
-        <SafeAreaView style={globalStyles.SafeAreaView}>
-            <View style={globalStyles.container}>
-                <Text>{category.name}</Text>
-                <FlatList
-                    data={category.products.items}
-                    renderItem={({item}) => (
-                        <ProductItem item={item} navigation={navigation} />
-                    )}
-                    keyExtractor={(item) => item.id}
-                />
-                {/* <Button
-                    title="Product"
-                    onPress={() =>
-                        navigation.navigate('Product', {name: 'Test Product'})
-                    }
-                /> */}
-            </View>
-        </SafeAreaView>
+        <ScrollView style={globalStyles.container}>
+            <Text style={globalStyles.title}>{category.name}</Text>
+            <ProductList
+                data={category.products.items}
+                navigation={navigation}
+            />
+        </ScrollView>
     );
 };
 

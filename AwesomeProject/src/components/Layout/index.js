@@ -116,12 +116,12 @@ function AuthStack() {
             <Tab.Screen
                 name="Home"
                 component={Home}
-                options={{headerShown: false, title: 'Homepage!'}}
+                options={{headerShown: false, title: 'Home'}}
             />
             <Tab.Screen
                 name="Catalog"
                 component={CatalogStack}
-                options={{title: 'Catalog Page!'}}
+                options={{title: 'Categories'}}
             />
             {/* <Tab.Screen name="Category" component={Category} />
             <Tab.Screen name="Product" component={Product} /> */}

@@ -3,9 +3,9 @@ import {gql} from 'apollo-boost';
 import {
     View,
     Text,
-    ScrollView,
     TextInput,
     TouchableOpacity,
+    ScrollView,
 } from 'react-native';
 import PrimaryButton from '../../components/primaryButton';
 import {useMutation} from '@apollo/react-hooks';
@@ -16,6 +16,7 @@ import styles from './style';
 import {connect} from 'react-redux';
 // import AsyncStorage from '@react-native-community/async-storage';
 import AUTH_ACTION from '../../stores/actions/auth';
+import Loader from '../../components/Loader';
 
 const schemaGenerateCustomerToken = gql`
     mutation generateCustomerToken($email: String!, $password: String!) {
@@ -28,24 +29,13 @@ const schemaGenerateCustomerToken = gql`
 const Login = ({signIn}) => {
     const [username, setUsername] = useState('jojo@icube.us');
     const [password, setPassword] = useState('Icubeus@1234');
-    // const [isLogin, setIsLogin] = useState();
-
-    // AsyncStorage.getItem('token').then((value) => {
-    //     console.log(value);
-    // });
-    // useEffect(() => {
-    //     AsyncStorage.getItem('token').then((value) => {
-    //         console.log(value);
-    //         setIsLogin(true);
-    //     });
-    // });
 
     const [generateCustomerToken, {loading, data, error}] = useMutation(
         schemaGenerateCustomerToken,
     );
 
     if (loading) {
-        return <Text>Loging in...</Text>;
+        return <Loader />;
     }
     if (error) {
         return <Text>Error fetching data!</Text>;
@@ -67,7 +57,6 @@ const Login = ({signIn}) => {
     }
 
     const handleSubmit = () => {
-        console.log('Login clicked');
         generateCustomerToken({
             variables: {
                 email: username,

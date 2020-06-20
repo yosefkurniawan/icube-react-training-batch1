@@ -1,8 +1,12 @@
 import React from 'react';
-import {SafeAreaView, Text, View, Button} from 'react-native';
+import {TouchableOpacity, Text, View, ScrollView} from 'react-native';
 import {globalStyles} from '../../assets/style';
 import {useQuery} from '@apollo/react-hooks';
 import {gql} from 'apollo-boost';
+import PrimaryButton from '../../components/primaryButton';
+import Image from 'react-native-scalable-image';
+import {productStyle} from './style';
+import Loader from '../../components/Loader';
 
 const PRODUCT = gql`
     query getProduct($sku: String!) {
@@ -36,15 +40,13 @@ const PRODUCT = gql`
 `;
 
 const Product = ({navigation: {goBack}, route: {params}}) => {
-    console.log(params);
     let sku = params.sku;
-    console.log(sku);
     const {loading, data, error} = useQuery(PRODUCT, {
         variables: {sku: sku},
     });
 
     if (loading) {
-        return <Text>Fetching Data...</Text>;
+        return <Loader />;
     }
 
     if (error) {
@@ -54,12 +56,26 @@ const Product = ({navigation: {goBack}, route: {params}}) => {
     const product = data.products.items[0];
 
     return (
-        <SafeAreaView style={globalStyles.SafeAreaView}>
-            <View style={globalStyles.container}>
-                <Text>Product Title: {product.name}</Text>
-                <Button onPress={() => goBack()} title="Back" />
+        <ScrollView style={globalStyles.container}>
+            <View style={productStyle.itemImageContainer}>
+                <Image
+                    width={400}
+                    source={{
+                        uri: product.image.url,
+                    }}
+                />
             </View>
-        </SafeAreaView>
+            <Text style={globalStyles.title}>{product.name}</Text>
+            <Text>
+                {product.price_range.minimum_price.final_price.currency}{' '}
+                {product.price_range.minimum_price.final_price.value}
+            </Text>
+            <TouchableOpacity
+                style={productStyle.action}
+                onPress={() => goBack()}>
+                <PrimaryButton label={'Back'} />
+            </TouchableOpacity>
+        </ScrollView>
     );
 };
 

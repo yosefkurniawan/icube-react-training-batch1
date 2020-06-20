@@ -1,15 +1,11 @@
 import React from 'react';
-import {
-    SafeAreaView,
-    Text,
-    View,
-    Button,
-    FlatList,
-    ScrollView,
-} from 'react-native';
+import {Text, View, FlatList, ScrollView} from 'react-native';
 import {globalStyles} from '../../assets/style';
 import {useQuery} from '@apollo/react-hooks';
 import {gql} from 'apollo-boost';
+import Loader from '../../components/Loader';
+import PrimaryButton from '../../components/primaryButton';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const CATEGORIES_QUERY = gql`
     {
@@ -24,15 +20,16 @@ const CATEGORIES_QUERY = gql`
 
 const CategoryItem = ({item, navigation}) => {
     return (
-        <Button
-            title={item.name}
+        <TouchableOpacity
+            style={globalStyles.fullWidth}
             onPress={() =>
                 navigation.navigate('Category', {
                     title: item.name,
                     id: item.id,
                 })
-            }
-        />
+            }>
+            <PrimaryButton label={item.name} />
+        </TouchableOpacity>
     );
 };
 
@@ -40,7 +37,7 @@ const Catalog = ({navigation}) => {
     const {loading, data, error} = useQuery(CATEGORIES_QUERY);
 
     if (loading) {
-        return <Text>Fetching data...</Text>;
+        return <Loader />;
     }
 
     if (error) {
@@ -48,23 +45,18 @@ const Catalog = ({navigation}) => {
     }
 
     const categories = data.categoryList[0].children;
-    console.log(categories);
 
     return (
-        <SafeAreaView style={globalStyles.SafeAreaView}>
-            <ScrollView>
-                <View style={globalStyles.container}>
-                    <Text>Category List:</Text>
-                    <FlatList
-                        data={categories}
-                        renderItem={({item}) => (
-                            <CategoryItem item={item} navigation={navigation} />
-                        )}
-                        keyExtractor={(item) => item.id}
-                    />
-                </View>
-            </ScrollView>
-        </SafeAreaView>
+        <ScrollView style={globalStyles.container}>
+            <Text style={globalStyles.title}>Shop by Category</Text>
+            <FlatList
+                data={categories}
+                renderItem={({item}) => (
+                    <CategoryItem item={item} navigation={navigation} />
+                )}
+                keyExtractor={(item) => item.id}
+            />
+        </ScrollView>
     );
 };
 

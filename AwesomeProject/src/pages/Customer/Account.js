@@ -1,11 +1,14 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, Text, Button} from 'react-native';
+import {Text, TouchableOpacity, View, ScrollView} from 'react-native';
 import {globalStyles} from '../../assets/style';
 import {removeItem, getItem} from '../../helpers/localStorage';
 import AUTH_ACTION from '../../stores/actions/auth';
 import {connect} from 'react-redux';
 import {useQuery} from '@apollo/react-hooks';
 import {gql} from 'apollo-boost';
+import Loader from '../../components/Loader';
+import PrimaryButton from '../../components/primaryButton';
+import style from './style';
 
 const queryCustomer = gql`
     {
@@ -30,7 +33,7 @@ const Account = ({navigation, signOut, auth}) => {
     });
 
     if (loading) {
-        return <Text>Fetching Data...</Text>;
+        return <Loader />;
     }
 
     if (error) {
@@ -38,7 +41,7 @@ const Account = ({navigation, signOut, auth}) => {
     }
 
     const handleLogout = () => {
-        console.log('logoout');
+        console.log('logout');
         removeItem('token').then(() => {
             getItem('token').then((value) => {
                 console.log(value);
@@ -48,17 +51,18 @@ const Account = ({navigation, signOut, auth}) => {
         navigation.navigate('Main');
     };
     return (
-        <SafeAreaView>
-            <ScrollView style={globalStyles.scrollView}>
-                <Text>Dashboard</Text>
-                <Text>
-                    Hello,{' '}
-                    {`${data.customer.firstname} ${data.customer.lastname}`}
-                </Text>
-                <Text>{`Email: ${data.customer.email}`}</Text>
-                <Button title="Logout" onPress={() => handleLogout()} />
-            </ScrollView>
-        </SafeAreaView>
+        <ScrollView style={globalStyles.container}>
+            <Text style={globalStyles.title}>Dashboard</Text>
+            <Text>
+                Hello, {`${data.customer.firstname} ${data.customer.lastname}`}
+            </Text>
+            <Text>{`Email: ${data.customer.email}`}</Text>
+            <TouchableOpacity
+                style={style.action}
+                onPress={() => handleLogout()}>
+                <PrimaryButton label={'Logout'} />
+            </TouchableOpacity>
+        </ScrollView>
     );
 };
 

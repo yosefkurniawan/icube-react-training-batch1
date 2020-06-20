@@ -49,98 +49,119 @@ function MyAccountStack() {
 const App = () => {
     return (
         /* Start: Stack Navigation */
-        // <NavigationContainer>
-        //     <Stack.Navigator>
-        //         <Stack.Screen
-        //             name="Home"
-        //             component={Home}
-        //             options={{headerShown: false, title: 'Homepage!'}}
-        //         />
-        //         <Stack.Screen
-        //             name="Catalog"
-        //             component={Catalog}
-        //             options={{title: 'Catalog Page!'}}
-        //         />
-        //         <Stack.Screen
-        //             name="Todo"
-        //             component={Todo}
-        //             options={{title: 'Todo!'}}
-        //         />
-        //     </Stack.Navigator>
-        // </NavigationContainer>
-        /* End: Stack Navigation */
-
-        /* Start: Tab Navigation */
         <ApolloProvider client={client}>
             <NavigationContainer>
-                <Tab.Navigator
-                    screenOptions={({route}) => ({
-                        tabBarIcon: ({focused, color, size}) => {
-                            let iconName;
-
-                            if (route.name === 'Home') {
-                                iconName = focused ? 'home' : 'home';
-                            } else if (route.name === 'Catalog') {
-                                iconName = focused ? 'menu' : 'menu';
-                            } else if (route.name === 'Todo') {
-                                iconName = focused
-                                    ? 'calendar-check'
-                                    : 'calendar-check';
-                            } else if (route.name === 'Account') {
-                                iconName = focused ? 'account' : 'account';
-                            } else if (route.name === 'Cart') {
-                                iconName = focused ? 'cart' : 'cart';
-                            }
-
-                            return (
-                                <Icon
-                                    name={iconName}
-                                    size={size}
-                                    color={color}
-                                />
-                            );
-                        },
-                    })}
-                    tabBarOptions={{
-                        activeTintColor: 'tomato',
-                        inactiveTintColor: 'gray',
-                    }}>
-                    <Tab.Screen
+                <Stack.Navigator>
+                    <Stack.Screen
                         name="Landing"
                         component={Landing}
                         options={{
                             title: 'Landing',
-                            tabBarVisible: false,
                         }}
                     />
-                    <Tab.Screen
+                    <Stack.Screen
                         name="Home"
                         component={Home}
-                        options={{title: 'Home'}}
+                        options={{headerShown: false, title: 'Homepage!'}}
                     />
-                    <Tab.Screen
+                    <Stack.Screen
                         name="Catalog"
-                        component={CatalogStack}
-                        options={{title: 'Catalog'}}
+                        component={Catalog}
+                        options={{title: 'Catalog Page!'}}
                     />
-                    {/* <Tab.Screen
+                    <Stack.Screen name="Category" component={Category} />
+                    <Stack.Screen name="Product" component={Product} />
+                    {/* <Stack.Screen
                         name="Todo"
                         component={Todo}
-                        options={{title: 'Todo'}}
+                        options={{title: 'Todo!'}}
                     /> */}
-                    <Tab.Screen
+                    <Stack.Screen
                         name="Cart"
                         component={Cart}
                         options={{title: 'Cart'}}
                     />
-                    <Tab.Screen
+                    <Stack.Screen
                         name="Account"
                         component={Customer}
                         options={{title: 'Account'}}
                     />
-                </Tab.Navigator>
+                </Stack.Navigator>
             </NavigationContainer>
         </ApolloProvider>
+        /* End: Stack Navigation */
+
+        /* Start: Tab Navigation */
+        // <ApolloProvider client={client}>
+        //     <NavigationContainer>
+        //         <Tab.Navigator
+        //             screenOptions={({route}) => ({
+        //                 tabBarIcon: ({focused, color, size}) => {
+        //                     let iconName;
+
+        //                     if (route.name === 'Home') {
+        //                         iconName = focused ? 'home' : 'home';
+        //                     } else if (route.name === 'Catalog') {
+        //                         iconName = focused ? 'menu' : 'menu';
+        //                     } else if (route.name === 'Todo') {
+        //                         iconName = focused
+        //                             ? 'calendar-check'
+        //                             : 'calendar-check';
+        //                     } else if (route.name === 'Account') {
+        //                         iconName = focused ? 'account' : 'account';
+        //                     } else if (route.name === 'Cart') {
+        //                         iconName = focused ? 'cart' : 'cart';
+        //                     }
+
+        //                     return (
+        //                         <Icon
+        //                             name={iconName}
+        //                             size={size}
+        //                             color={color}
+        //                         />
+        //                     );
+        //                 },
+        //             })}
+        //             tabBarOptions={{
+        //                 activeTintColor: 'tomato',
+        //                 inactiveTintColor: 'gray',
+        //             }}>
+        //             <Tab.Screen
+        //                 name="Landing"
+        //                 component={Landing}
+        //                 options={{
+        //                     title: 'Landing',
+        //                     tabBarVisible: false,
+        //                 }}
+        //             />
+        //             <Tab.Screen
+        //                 name="Home"
+        //                 component={Home}
+        //                 options={{title: 'Home'}}
+        //             />
+        //             <Tab.Screen
+        //                 name="Catalog"
+        //                 component={CatalogStack}
+        //                 options={{title: 'Catalog'}}
+        //             />
+        //             {/* <Tab.Screen
+        //                 name="Todo"
+        //                 component={Todo}
+        //                 options={{title: 'Todo'}}
+        //             /> */}
+        //             <Tab.Screen
+        //                 name="Cart"
+        //                 component={Cart}
+        //                 options={{title: 'Cart'}}
+        //             />
+        //             <Tab.Screen
+        //                 name="Account"
+        //                 component={Customer}
+        //                 options={{title: 'Account'}}
+        //             />
+        //         </Tab.Navigator>
+        //     </NavigationContainer>
+        // </ApolloProvider>
         /* End: Tab Navigation */
     );
 };

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {SafeAreaView, ScrollView} from 'react-native';
+import {ScrollView} from 'react-native';
 import {globalStyles} from '../../assets/style';
-// import FormLogin from '../components/FormLogin';
 import FormTodo from '../../components/FormTodo';
 import ListTodo from '../../components/ListTodo';
 
@@ -13,13 +12,10 @@ const Todo = () => {
     };
 
     return (
-        <SafeAreaView>
-            <ScrollView style={globalStyles.scrollView}>
-                {/* <FormLogin /> */}
-                <FormTodo handleAddTodo={handleAddTodo} />
-                <ListTodo todoList={todo} />
-            </ScrollView>
-        </SafeAreaView>
+        <ScrollView style={globalStyles.container}>
+            <FormTodo handleAddTodo={handleAddTodo} />
+            <ListTodo todoList={todo} />
+        </ScrollView>
     );
 };
 

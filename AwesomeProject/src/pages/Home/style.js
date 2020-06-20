@@ -1,12 +1,11 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-    container: {
+    bannerWrapper: {
         flex: 1,
-        padding: 20,
-    },
-    action: {
-        marginTop: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
     },
 });
 

@@ -1,14 +1,13 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, Text} from 'react-native';
+import {Text, ScrollView} from 'react-native';
 import {globalStyles} from '../../assets/style';
 
 const Cart = () => {
     return (
-        <SafeAreaView>
-            <ScrollView style={globalStyles.scrollView}>
-                <Text>Cart Page</Text>
-            </ScrollView>
-        </SafeAreaView>
+        <ScrollView style={globalStyles.container}>
+            <Text style={globalStyles.title}>Cart Page</Text>
+            <Text>Coming soon...</Text>
+        </ScrollView>
     );
 };
 

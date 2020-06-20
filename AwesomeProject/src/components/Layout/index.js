@@ -5,8 +5,8 @@ import Home from '../../pages/Home';
 import Cart from '../../pages/Checkout/Cart';
 import Notification from '../../pages/Notification';
 import {createStackNavigator} from '@react-navigation/stack';
-// import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Catalog from '../../pages/Catalog';
 import Category from '../../pages/Catalog/Category';
 // import Customer from '../../pages/Customer';
@@ -19,21 +19,21 @@ import {Text, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 
 const Stack = createStackNavigator();
-// const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
-// function CatalogStack() {
-//     return (
-//         <Stack.Navigator>
-//             <Stack.Screen
-//                 name="Catalog"
-//                 component={Catalog}
-//                 options={{headerShown: false}}
-//             />
-//             <Stack.Screen name="Category" component={Category} />
-//             <Stack.Screen name="Product" component={Product} />
-//         </Stack.Navigator>
-//     );
-// }
+function CatalogStack() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen
+                name="Catalog"
+                component={Catalog}
+                options={{headerShown: false}}
+            />
+            <Stack.Screen name="Category" component={Category} />
+            <Stack.Screen name="Product" component={Product} />
+        </Stack.Navigator>
+    );
+}
 
 // function MyAccountStack() {
 //     return (
@@ -51,40 +51,101 @@ const Stack = createStackNavigator();
 
 function AuthStack() {
     return (
-        <Stack.Navigator>
-            <Stack.Screen
+        // <Stack.Navigator>
+        //     <Stack.Screen
+        //         name="Home"
+        //         component={Home}
+        //         options={{headerShown: false, title: 'Homepage!'}}
+        //     />
+        //     <Stack.Screen
+        //         name="Catalog"
+        //         component={Catalog}
+        //         options={{title: 'Catalog Page!'}}
+        //     />
+        //     <Stack.Screen name="Category" component={Category} />
+        //     <Stack.Screen name="Product" component={Product} />
+        //     {/* <Stack.Screen
+        //                     name="Todo"
+        //                     component={Todo}
+        //                     options={{title: 'Todo!'}}
+        //                 /> */}
+        //     <Stack.Screen
+        //         name="Cart"
+        //         component={Cart}
+        //         options={{title: 'Cart'}}
+        //     />
+        //     <Stack.Screen
+        //         name="Notification"
+        //         component={Notification}
+        //         options={{title: 'Notification'}}
+        //     />
+        //     <Stack.Screen
+        //         name="Account"
+        //         component={Account}
+        //         options={{title: 'Account'}}
+        //     />
+        // </Stack.Navigator>
+        <Tab.Navigator
+            screenOptions={({route}) => ({
+                tabBarIcon: ({focused, color, size}) => {
+                    let iconName;
+
+                    if (route.name === 'Home') {
+                        iconName = focused ? 'home' : 'home';
+                    } else if (route.name === 'Catalog') {
+                        iconName = focused ? 'menu' : 'menu';
+                    } else if (route.name === 'Todo') {
+                        iconName = focused
+                            ? 'calendar-check'
+                            : 'calendar-check';
+                    } else if (route.name === 'Account') {
+                        iconName = focused ? 'account' : 'account';
+                    } else if (route.name === 'Cart') {
+                        iconName = focused ? 'cart' : 'cart';
+                    } else if (route.name === 'Notification') {
+                        iconName = focused ? 'bell' : 'bell';
+                    }
+
+                    return <Icon name={iconName} size={size} color={color} />;
+                },
+            })}
+            tabBarOptions={{
+                activeTintColor: 'tomato',
+                inactiveTintColor: 'gray',
+            }}>
+            <Tab.Screen
                 name="Home"
                 component={Home}
                 options={{headerShown: false, title: 'Homepage!'}}
             />
-            <Stack.Screen
+            <Tab.Screen
                 name="Catalog"
-                component={Catalog}
+                component={CatalogStack}
                 options={{title: 'Catalog Page!'}}
             />
-            <Stack.Screen name="Category" component={Category} />
-            <Stack.Screen name="Product" component={Product} />
+            {/* <Tab.Screen name="Category" component={Category} />
+            <Tab.Screen name="Product" component={Product} /> */}
             {/* <Stack.Screen
-                            name="Todo"
-                            component={Todo}
-                            options={{title: 'Todo!'}}
-                        /> */}
-            <Stack.Screen
+                                    name="Todo"
+                                    component={Todo}
+                                    options={{title: 'Todo!'}}
+                                /> */}
+            <Tab.Screen
                 name="Cart"
                 component={Cart}
                 options={{title: 'Cart'}}
             />
-            <Stack.Screen
+            <Tab.Screen
                 name="Notification"
                 component={Notification}
                 options={{title: 'Notification'}}
             />
-            <Stack.Screen
+            <Tab.Screen
                 name="Account"
                 component={Account}
                 options={{title: 'Account'}}
             />
-        </Stack.Navigator>
+        </Tab.Navigator>
     );
 }
 
@@ -117,7 +178,8 @@ const Layout = ({auth}) => {
                     name="Main"
                     component={isLoggedIn ? AuthStack : NoAuthStack}
                     options={{
-                        title: 'Landing',
+                        title: 'Main',
+                        headerShown: false,
                     }}
                 />
                 {/* {isLoggedIn ? (
@@ -127,75 +189,6 @@ const Layout = ({auth}) => {
                 )} */}
             </Stack.Navigator>
         </NavigationContainer>
-
-        // <NavigationContainer>
-        //          <Tab.Navigator
-        //             screenOptions={({route}) => ({
-        //                 tabBarIcon: ({focused, color, size}) => {
-        //                     let iconName;
-
-        //                     if (route.name === 'Home') {
-        //                         iconName = focused ? 'home' : 'home';
-        //                     } else if (route.name === 'Catalog') {
-        //                         iconName = focused ? 'menu' : 'menu';
-        //                     } else if (route.name === 'Todo') {
-        //                         iconName = focused
-        //                             ? 'calendar-check'
-        //                             : 'calendar-check';
-        //                     } else if (route.name === 'Account') {
-        //                         iconName = focused ? 'account' : 'account';
-        //                     } else if (route.name === 'Cart') {
-        //                         iconName = focused ? 'cart' : 'cart';
-        //                     }
-
-        //                     return (
-        //                         <Icon
-        //                             name={iconName}
-        //                             size={size}
-        //                             color={color}
-        //                         />
-        //                     );
-        //                 },
-        //             })}
-        //             tabBarOptions={{
-        //                 activeTintColor: 'tomato',
-        //                 inactiveTintColor: 'gray',
-        //             }}>
-        //             <Tab.Screen
-        //                 name="Landing"
-        //                 component={Landing}
-        //                 options={{
-        //                     title: 'Landing',
-        //                     tabBarVisible: false,
-        //                 }}
-        //             />
-        //             <Tab.Screen
-        //                 name="Home"
-        //                 component={Home}
-        //                 options={{title: 'Home'}}
-        //             />
-        //             <Tab.Screen
-        //                 name="Catalog"
-        //                 component={CatalogStack}
-        //                 options={{title: 'Catalog'}}
-        //             />
-        //             {/* <Tab.Screen
-        //                 name="Todo"
-        //                 component={Todo}
-        //                 options={{title: 'Todo'}}
-        //             /> */}
-        //             <Tab.Screen
-        //                 name="Cart"
-        //                 component={Cart}
-        //                 options={{title: 'Cart'}}
-        //             />
-        //             <Tab.Screen
-        //                 name="Account"
-        //                 component={Customer}
-        //                 options={{title: 'Account'}}
-        //             />
-        //         </Tab.Navigator>
-        //     </NavigationContainer></NavigationContainer>
     );
 };
 

@@ -20,12 +20,14 @@ const DATA = [
     },
 ];
 
-const NotificationItem = ({title, content}) => {
-    <View>
-        <Text>
-            {title} - {content}
-        </Text>
-    </View>;
+const NotificationItem = ({item}) => {
+    return (
+        <View>
+            <Text>
+                {item.title} - {item.content}
+            </Text>
+        </View>
+    );
 };
 
 const Notification = ({navigation}) => {
@@ -35,7 +37,7 @@ const Notification = ({navigation}) => {
                 <Text>TEST FLATLIST</Text>
                 <FlatList
                     data={DATA}
-                    renderItem={(item) => NotificationItem(item)}
+                    renderItem={({item}) => <NotificationItem item={item} />}
                     keyExtractor={(item) => item.id}
                 />
             </View>

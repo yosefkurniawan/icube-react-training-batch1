@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableOpacity, View, ScrollView} from 'react-native';
+import {Text, TouchableOpacity, ScrollView} from 'react-native';
 import {globalStyles} from '../../assets/style';
 import {removeItem, getItem} from '../../helpers/localStorage';
 import AUTH_ACTION from '../../stores/actions/auth';

@@ -23,6 +23,17 @@ const queryCustomer = gql`
 const Account = ({navigation, signOut, auth}) => {
     let token = auth.user ? auth.user.token : '';
 
+    const handleLogout = () => {
+        console.log('logout');
+        removeItem('token').then(() => {
+            getItem('token').then((value) => {
+                console.log(value);
+            });
+        });
+        signOut();
+        navigation.navigate('Main');
+    };
+
     const {loading, data, error} = useQuery(queryCustomer, {
         context: {
             headers: {
@@ -37,19 +48,12 @@ const Account = ({navigation, signOut, auth}) => {
     }
 
     if (error) {
+        console.log('error euy');
+        console.log(error);
+        handleLogout();
         return <Text>Unexpected error during fetching Data...</Text>;
     }
 
-    const handleLogout = () => {
-        console.log('logout');
-        removeItem('token').then(() => {
-            getItem('token').then((value) => {
-                console.log(value);
-            });
-        });
-        signOut();
-        navigation.navigate('Main');
-    };
     return (
         <ScrollView style={globalStyles.container}>
             <Text style={globalStyles.title}>Dashboard</Text>

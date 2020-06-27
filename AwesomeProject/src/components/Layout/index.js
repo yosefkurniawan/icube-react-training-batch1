@@ -49,6 +49,77 @@ function CatalogStack() {
 //     );
 // }
 
+function BottomNavigation() {
+    return (
+        <Tab.Navigator
+            screenOptions={({route}) => ({
+                tabBarIcon: ({focused, color, size}) => {
+                    let iconName;
+
+                    if (route.name === 'Home') {
+                        iconName = focused ? 'home' : 'home';
+                    } else if (route.name === 'Catalog') {
+                        iconName = focused ? 'menu' : 'menu';
+                    } else if (route.name === 'Todo') {
+                        iconName = focused
+                            ? 'calendar-check'
+                            : 'calendar-check';
+                    } else if (route.name === 'Account') {
+                        iconName = focused ? 'account' : 'account';
+                    } else if (route.name === 'Cart') {
+                        iconName = focused ? 'cart' : 'cart';
+                    } else if (route.name === 'Notification') {
+                        iconName = focused ? 'bell' : 'bell';
+                    }
+
+                    return <Icon name={iconName} size={size} color={color} />;
+                },
+            })}
+            tabBarOptions={{
+                activeTintColor: 'tomato',
+                inactiveTintColor: 'gray',
+            }}>
+            <Tab.Screen
+                name="Home"
+                component={Home}
+                options={{headerShown: false, title: 'Home'}}
+            />
+            {/* <Tab.Screen
+                        name="Catalog"
+                        component={CatalogStack}
+                        options={{title: 'Categories'}}
+                    /> */}
+            <Tab.Screen
+                name="Catalog"
+                component={Catalog}
+                options={{title: 'Categories'}}
+            />
+            {/* <Tab.Screen name="Category" component={Category} />
+                <Tab.Screen name="Product" component={Product} /> */}
+            {/* <Stack.Screen
+                                        name="Todo"
+                                        component={Todo}
+                                        options={{title: 'Todo!'}}
+                                    /> */}
+            <Tab.Screen
+                name="Cart"
+                component={Cart}
+                options={{title: 'Cart'}}
+            />
+            <Tab.Screen
+                name="Notification"
+                component={Notification}
+                options={{title: 'Notification'}}
+            />
+            <Tab.Screen
+                name="Account"
+                component={Account}
+                options={{title: 'Account'}}
+            />
+        </Tab.Navigator>
+    );
+}
+
 function AuthStack() {
     return (
         // <Stack.Navigator>
@@ -85,67 +156,16 @@ function AuthStack() {
         //         options={{title: 'Account'}}
         //     />
         // </Stack.Navigator>
-        <Tab.Navigator
-            screenOptions={({route}) => ({
-                tabBarIcon: ({focused, color, size}) => {
-                    let iconName;
-
-                    if (route.name === 'Home') {
-                        iconName = focused ? 'home' : 'home';
-                    } else if (route.name === 'Catalog') {
-                        iconName = focused ? 'menu' : 'menu';
-                    } else if (route.name === 'Todo') {
-                        iconName = focused
-                            ? 'calendar-check'
-                            : 'calendar-check';
-                    } else if (route.name === 'Account') {
-                        iconName = focused ? 'account' : 'account';
-                    } else if (route.name === 'Cart') {
-                        iconName = focused ? 'cart' : 'cart';
-                    } else if (route.name === 'Notification') {
-                        iconName = focused ? 'bell' : 'bell';
-                    }
-
-                    return <Icon name={iconName} size={size} color={color} />;
-                },
-            })}
-            tabBarOptions={{
-                activeTintColor: 'tomato',
-                inactiveTintColor: 'gray',
-            }}>
-            <Tab.Screen
-                name="Home"
-                component={Home}
-                options={{headerShown: false, title: 'Home'}}
-            />
-            <Tab.Screen
-                name="Catalog"
-                component={CatalogStack}
-                options={{title: 'Categories'}}
-            />
-            {/* <Tab.Screen name="Category" component={Category} />
-            <Tab.Screen name="Product" component={Product} /> */}
-            {/* <Stack.Screen
-                                    name="Todo"
-                                    component={Todo}
-                                    options={{title: 'Todo!'}}
-                                /> */}
-            <Tab.Screen
-                name="Cart"
-                component={Cart}
-                options={{title: 'Cart'}}
-            />
-            <Tab.Screen
-                name="Notification"
-                component={Notification}
-                options={{title: 'Notification'}}
-            />
-            <Tab.Screen
-                name="Account"
-                component={Account}
-                options={{title: 'Account'}}
-            />
-        </Tab.Navigator>
+        <>
+            <Stack.Navigator>
+                <Stack.Screen
+                    name="BottomNavigation"
+                    component={BottomNavigation}
+                />
+                <Stack.Screen name="Category" component={Category} />
+                <Stack.Screen name="Product" component={Product} />
+            </Stack.Navigator>
+        </>
     );
 }
 

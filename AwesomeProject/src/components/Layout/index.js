@@ -83,6 +83,7 @@ function AuthStack() {
                 <Stack.Screen
                     name="BottomNavigation"
                     component={BottomNavigation}
+                    options={{headerShown: false}}
                 />
                 <Stack.Screen name="Category" component={Category} />
                 <Stack.Screen name="Product" component={Product} />

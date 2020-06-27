@@ -24,7 +24,7 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         overflow: 'hidden',
-        backgroundColor: '#f0f0f0',
+        // backgroundColor: '#f0f0f0',
         marginBottom: 15,
     },
     itemImage: {},

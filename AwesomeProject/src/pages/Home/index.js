@@ -21,6 +21,7 @@ const FEATURED_CATEGORIES = gql`
                         id
                         name
                         url_key
+                        sku
                         small_image {
                             url
                         }

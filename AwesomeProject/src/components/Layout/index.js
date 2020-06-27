@@ -9,45 +9,13 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Catalog from '../../pages/Catalog';
 import Category from '../../pages/Catalog/Category';
-// import Customer from '../../pages/Customer';
 import Account from '../../pages/Customer/Account';
 import Login from '../../pages/Customer/Login';
 import Product from '../../pages/Catalog/Product';
-import {Text, ScrollView} from 'react-native';
-// import style from './style';
-// import {globalStyles} from '../../assets/style';
 import {connect} from 'react-redux';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
-function CatalogStack() {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen
-                name="Catalog"
-                component={Catalog}
-                options={{headerShown: false}}
-            />
-            <Stack.Screen name="Category" component={Category} />
-            <Stack.Screen name="Product" component={Product} />
-        </Stack.Navigator>
-    );
-}
-
-// function MyAccountStack() {
-//     return (
-//         <Stack.Navigator>
-//             <Stack.Screen name="Customer" component={Customer} />
-//             <Stack.Screen name="Account" component={Account} />
-//             <Stack.Screen
-//                 name="Login"
-//                 component={Login}
-//                 options={{headerShown: false}}
-//             />
-//         </Stack.Navigator>
-//     );
-// }
 
 function BottomNavigation() {
     return (
@@ -84,23 +52,11 @@ function BottomNavigation() {
                 component={Home}
                 options={{headerShown: false, title: 'Home'}}
             />
-            {/* <Tab.Screen
-                        name="Catalog"
-                        component={CatalogStack}
-                        options={{title: 'Categories'}}
-                    /> */}
             <Tab.Screen
                 name="Catalog"
                 component={Catalog}
                 options={{title: 'Categories'}}
             />
-            {/* <Tab.Screen name="Category" component={Category} />
-                <Tab.Screen name="Product" component={Product} /> */}
-            {/* <Stack.Screen
-                                        name="Todo"
-                                        component={Todo}
-                                        options={{title: 'Todo!'}}
-                                    /> */}
             <Tab.Screen
                 name="Cart"
                 component={Cart}
@@ -122,40 +78,6 @@ function BottomNavigation() {
 
 function AuthStack() {
     return (
-        // <Stack.Navigator>
-        //     <Stack.Screen
-        //         name="Home"
-        //         component={Home}
-        //         options={{headerShown: false, title: 'Homepage!'}}
-        //     />
-        //     <Stack.Screen
-        //         name="Catalog"
-        //         component={Catalog}
-        //         options={{title: 'Catalog Page!'}}
-        //     />
-        //     <Stack.Screen name="Category" component={Category} />
-        //     <Stack.Screen name="Product" component={Product} />
-        //     {/* <Stack.Screen
-        //                     name="Todo"
-        //                     component={Todo}
-        //                     options={{title: 'Todo!'}}
-        //                 /> */}
-        //     <Stack.Screen
-        //         name="Cart"
-        //         component={Cart}
-        //         options={{title: 'Cart'}}
-        //     />
-        //     <Stack.Screen
-        //         name="Notification"
-        //         component={Notification}
-        //         options={{title: 'Notification'}}
-        //     />
-        //     <Stack.Screen
-        //         name="Account"
-        //         component={Account}
-        //         options={{title: 'Account'}}
-        //     />
-        // </Stack.Navigator>
         <>
             <Stack.Navigator>
                 <Stack.Screen
@@ -203,11 +125,6 @@ const Layout = ({auth}) => {
                         headerShown: false,
                     }}
                 />
-                {/* {isLoggedIn ? (
-                    <Stack.Screen name="Auth" component={AuthStack} />
-                ) : (
-                    <Stack.Screen name="NoAuth" component={NoAuthStack} />
-                )} */}
             </Stack.Navigator>
         </NavigationContainer>
     );
